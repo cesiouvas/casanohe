@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    <table>
+    <table class="table">
         <tr>
             <th>Nombre</th>
             <th>Descripción</th>

@@ -1,6 +1,6 @@
-@extends('layout.styles')
+@include('layout.styles')
 
-<div>
+<div style="background-color: #f2ffc8;">
     <form action="{{route('products.store')}}" method="POST">
         <div class="form-group p-3">
             <!-- protection against injections -->
@@ -20,7 +20,7 @@
                 @endforeach
             </select>
         </div>
-        
+
         <button class="btn" type="submit">Crear producto</button>
     </form>
 </div>
