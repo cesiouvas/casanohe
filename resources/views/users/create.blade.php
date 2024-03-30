@@ -2,51 +2,53 @@
 @extends('layout.main')
 @section('content')
 
-<div style="display:flex; justify-content:center; height:100%; align-items:center;">
-    <div>
+<div class="pt-4" style="display:flex; justify-content:center; height:100%; align-items:center;">
+    <div class="rounded-5 p-2" style="border: 8px solid #ffcc23; background-color: #fcf386;">
         <form action="{{route('users.store')}}" method="POST">
             <p><a href="{{route('users.index')}}">Volver (cambiar por flecha)</a></p>
-            <h1>Crear usuario</h1>
+            <h1 class="text-center">Crear usuario</h1>
             <!-- protection against injections -->
             @csrf
-            <div class="row">
-                <div class="col">
+            <div class="d-flex justify-content-center">
+                <div class="p-3">
                     <label for="name">Nombre</label><br>
-                    <input type="text" name="name" id="name">
+                    <input class="form-control" type="text" name="name" id="name">
                 </div>
 
-                <div class="col">
-                    <label for="surname">Apellidos</label>
-                    <input type="text" name="surname" id="surname">
+                <div class="p-3">
+                    <label for="surname">Apellidos</label><br>
+                    <input class="form-control" type="text" name="surname" id="surname">
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
+            <div class="d-flex justify-content-center">
+                <div class="p-3">
                     <label for="email">Email</label><br>
-                    <input type="text" name="email" id="email">
+                    <input class="form-control" type="text" name="email" id="email">
                 </div>
-                <div class="col">
+                <div class="p-3">
 
                     <label for="password">Contraseña</label><br>
-                    <input type="password" name="password" id="password">
+                    <input class="form-control" type="password" name="password" id="password">
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
+            <div class="d-flex justify-content-center">
+                <div class="p-3">
                     <label for="dni">DNI</label><br>
-                    <input type="text" name="dni" id="dni">
+                    <input class="form-control" type="text" name="dni" id="dni">
                 </div>
 
-                <div class="col">
+                <div class="p-3">
                     <label for="type">Tipo</label><br>
-                    <select name="type" id="type">
+                    <select class="form-select" name="type" id="type">
                         <option selected disabled>--selecciona un tipo</option>
                         <option value="0">Usuario</option>
                         <option value="1">Admin</option>
                     </select>
                 </div>
             </div>
-            <button class="btn" type="submit">Crear usuario</button>
+            <div class="d-flex justify-content-end p-3">
+                <button class="btn btn-warning" type="submit">Crear usuario</button>
+            </div>
         </form>
     </div>
 </div>

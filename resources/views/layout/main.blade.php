@@ -2,7 +2,7 @@
 <html lang="es">
 @include('layout.styles')
 
-<body style="height: 100vh; background-color: #f2ffc8;">
+<body style="height: 100vh; background-color: #f8ffe3;">
     <header>
         <div style="background-color: #a5be00;">
             <nav class="navbar navbar-light pe-3">
