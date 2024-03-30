@@ -5,7 +5,7 @@
 <div class="pt-4" style="display:flex; justify-content:center; height:100%; align-items:center;">
     <div class="rounded-5 p-2" style="border: 8px solid #ffcc23; background-color: #fcf386;">
         <form action="{{route('users.store')}}" method="POST">
-            <p><a href="{{route('users.index')}}">Volver (cambiar por flecha)</a></p>
+            <p class="ps-3 pt-3"><a href="{{route('users.index')}}"><i class="fa-solid fa-arrow-left fa-xl" style="color: #000000;"></i></a></p>
             <h1 class="text-center">Crear usuario</h1>
             <!-- protection against injections -->
             @csrf

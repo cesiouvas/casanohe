@@ -26,5 +26,6 @@
     </div>
     <footer>OJETE</footer>
 </body>
+<script src="https://kit.fontawesome.com/7962c0e335.js" crossorigin="anonymous"></script>
 
 </html>
