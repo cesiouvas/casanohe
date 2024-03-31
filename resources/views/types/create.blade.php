@@ -1,13 +1,24 @@
 @extends('layout.styles')
+@extends('layout.main')
+@section('content')
 
-<div>
-    <form action="{{route('types.store')}}" method="POST">
-        <div class="form-group p-3">
+<div class="pt-4" style="display:flex; justify-content:center; height:100%; align-items:center;">
+    <div class="rounded-5 p-2" style="border: 8px solid #ffcc23; background-color: #fcf386; width: 80vh;">
+        <form action="{{route('types.store')}}" method="POST">
+            <p class="ps-3 pt-3"><a href="{{route('types.index')}}"><i class="fa-solid fa-arrow-left fa-xl" style="color: #000000;"></i></a></p>
+            <h1 class="text-center">Crear tipo</h1>
             <!-- protection against injections -->
             @csrf
-            <label for="type">Tipo</label>
-            <input type="text" name="type" id="type">
-        </div>
-        <button class="btn" type="submit">Crear tipo</button>
-    </form>
+            <div class="d-flex justify-content-center">
+                <div class="p-3 w-100">
+                    <label for="type">Tipo</label>
+                    <input class="form-control" type="text" name="type" id="type">
+                </div>
+            </div>
+            <div class="d-flex justify-content-end p-3">
+                <button class="btn btn-warning" type="submit">Crear tipo</button>
+            </div>
+        </form>
+    </div>
 </div>
+@endsection
