@@ -41,7 +41,32 @@ class productsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate inputs
+        $request->validate([
+            'name'=>'required',
+            'desc'=>'required',
+            'image'=>'required',
+            'type'=>'required',
+            'subtype'=>'required',
+            'quantity'=>'required',
+            'price'=>'required',
+        ]);
+
+        //dd($request);
+
+
+        Products::create([
+            'name'=>$request->name,
+            'desc'=>$request->desc,
+            'image'=>$request->image,
+            'type_id'=>$request->type,
+            'subtype'=>$request->subtype,
+            'quantity'=>$request->quantity,
+            'price'=>$request->price,
+        ]);
+
+        return redirect()->route('products.index')
+            ->with('success', 'product created!!');
     }
 
     /**
