@@ -77,7 +77,13 @@ class productsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // select all from table users with an id
+        $prod = Products::select('products.*')->findOrFail($id);
+     
+        // debug dd($user);
+
+        // return to the show view
+        return view('products.show', compact('prod'));
     }
 
     /**
@@ -85,7 +91,13 @@ class productsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // select all from table users with an id
+        $prod = Products::select('products.*')->findOrFail($id);
+     
+        // debug dd($user);
+
+        // return to the show view
+        return view('products.edit', compact('prod'));
     }
 
     /**
@@ -93,7 +105,33 @@ class productsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // validate inputs
+        $request->validate([
+            'name'=>'required',
+            'desc'=>'required',
+            'image'=>'required',
+            'type'=>'required',
+            'subtype'=>'required',
+            'quantity'=>'required',
+            'price'=>'required',
+        ]);
+
+        $prod = Products::findOrFail($id);
+
+        //dd($request);
+
+        $prod->update([
+            'name'=>$request->name,
+            'desc'=>$request->desc,
+            'image'=>$request->image,
+            'type_id'=>$request->type,
+            'subtype'=>$request->subtype,
+            'quantity'=>$request->quantity,
+            'price'=>$request->price,
+        ]);
+
+        return redirect()->route('products.index')
+            ->with('success', 'product edited!!');
     }
 
     /**
@@ -101,6 +139,11 @@ class productsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $prod = Products::findOrFail($id);
+
+        $prod->delete();
+
+        return redirect()->route('products.index')
+            ->with('success', 'produt deleted!!');
     }
 }

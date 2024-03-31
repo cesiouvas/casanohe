@@ -12,13 +12,12 @@
                 </div>
                 <button class="btn btn-warning" style="background-color: ffa006;">Log out</button>
             </nav>
-            <nav class="d-flex justify-content-evenly">
-                <a href="{{route('users.index')}}">Usuarios</a>
-                <a href="{{route('types.index')}}">Tipos</a>
-                <a href="{{route('products.index')}}">Productos</a>
+            <nav class="d-flex justify-content-evenly pb-2">
+                <a style="color: black; text-decoration: none;" href="{{route('users.index')}}">Usuarios</a>
+                <a style="color: black; text-decoration: none;" href="{{route('types.index')}}">Tipos</a>
+                <a style="color: black; text-decoration: none;" href="{{route('products.index')}}">Productos</a>
             </nav>
         </div>
-
     </header>
     <div class="p-2">
         <!-- insert content section -->
