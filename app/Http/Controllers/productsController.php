@@ -13,7 +13,10 @@ class productsController extends Controller
      */
     public function index()
     {
-        $products = Products::get();
+        $products = Products::join("types", "types.id", "=", "products.type_id")
+                                ->select("products.*", "types.type as type")                        
+                                ->get();
+        //dd($products);
 
         return view('products.index', compact('products'));
     }

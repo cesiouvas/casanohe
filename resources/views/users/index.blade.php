@@ -20,7 +20,11 @@
             <td>{{$user->dni}}</td>
             <td>{{$user->email}}</td>
             <td>{{$user->password}}</td>
-            <td>{{$user->type}}</td>
+            @if ($user->type == 1)
+                <td>Admin</td>
+                @else
+                <td>Usuario</td>
+            @endif
             <td>
                 <form action="{{route('users.destroy', $user->id)}}" method="POST">
                     <button><a href="{{route('users.edit', $user->id)}}">Editar</a></button>
