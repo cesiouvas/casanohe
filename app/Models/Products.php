@@ -19,6 +19,8 @@ class Products extends Model
         'image',
         'quantity',
         'price',
+        'type_id',
+        'subtype'
     ];
 
     public function types() {
