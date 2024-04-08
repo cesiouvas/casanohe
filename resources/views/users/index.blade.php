@@ -11,6 +11,7 @@
             <th>Contraseña</th>
             <th>Tipo</th>
             <th>Opciones</th>
+            <th>Carrito</th>
         </tr>
 
         @foreach($users as $user)
@@ -21,9 +22,9 @@
             <td>{{$user->email}}</td>
             <td>{{$user->password}}</td>
             @if ($user->type == 1)
-                <td>Admin</td>
-                @else
-                <td>Usuario</td>
+            <td>Admin</td>
+            @else
+            <td>Usuario</td>
             @endif
             <td>
                 <form action="{{route('users.destroy', $user->id)}}" method="POST">
@@ -34,6 +35,9 @@
                     @method('DELETE')
                     <button type="submit">Eliminar</button>
                 </form>
+            </td>
+            <td>
+                <a href="{{route('shoppingCart.show', $user->id)}}">Ver carrito</a>
             </td>
         </tr>
 

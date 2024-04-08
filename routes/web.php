@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\productsController;
+use App\Http\Controllers\shoppingcartController;
 use App\Http\Controllers\typesController;
 use App\Http\Controllers\usersController;
+use App\Models\ShoppingCart;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,3 +31,6 @@ Route::resource('products', productsController::class);
 
 // en /types usa el typesController y nos lleva a types/index
 Route::get('/products', [productsController::class,'index'])->name('products.index');
+
+
+Route::resource('shoppingCart', shoppingcartController::class);

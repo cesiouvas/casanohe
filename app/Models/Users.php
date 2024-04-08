@@ -29,7 +29,7 @@ class Users extends Model
     ];
 
     // relation with the table orders
-    /*
+    
     public function orders() {
         return $this->hasMany(Orders::class);
     }
@@ -41,5 +41,4 @@ class Users extends Model
     public function shoppingCart() {
         return $this->hasMany(ShoppingCart::class);
     }
-    */
 }
