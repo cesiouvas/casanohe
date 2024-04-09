@@ -22,12 +22,14 @@ class shoppingcartController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create($userId)
     {
         $products = Products::get();
 
+        $user = Users::findOrFail($userId);
+
         // return to the create view
-        return view('shoppingCart.create', compact('products', $id));
+        return view('shoppingCart.create', compact('products', 'user'));
     }
 
     /**
@@ -35,7 +37,21 @@ class shoppingcartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    //dd($request);
+        $request->validate([
+            'quantity' => 'required',
+            'user_id' => 'required',
+            'product_id' => 'required'
+        ]);
+  
+        ShoppingCart::create([
+            'quantity'=>$request->quantity,
+            'user_id'=>$request->user_id,
+            'product_id'=>$request->product_id,
+        ]);
+
+        return redirect()->route('shoppingCart.show', ['user' => $request->user_id])
+            ->with('success', 'Producto añadido con éxito');
     }
 
     /**
@@ -43,14 +59,16 @@ class shoppingcartController extends Controller
      */
     public function show(string $id)
     {
-        $userCart = Users::leftJoin('shoppingcart', 'users.id', '=', 'shoppingcart.user_id')
-                    ->select('shoppingcart.*', 'users.*')
-                    ->where('users.id', '=', $id)
+        $cart = ShoppingCart::leftJoin('products', 'products.id', '=', 'shoppingcart.product_id')
+                    ->select('shoppingcart.quantity as quantity_line', 'shoppingcart.id as scid', 'shoppingcart.*', 'products.*')
+                    ->where('user_id', '=', $id)
                     ->get();
 
-        //debug dd($sc);  
+        $user = Users::findOrFail($id);
 
-        return view('shoppingCart.show', compact('userCart'));
+        //debug dd($userCart);  
+
+        return view('shoppingCart.show', compact('cart', 'user'));
     }
 
     /**
@@ -58,7 +76,13 @@ class shoppingcartController extends Controller
      */
     public function edit(string $id)
     {
+        // select all from table shoppingcart with an id
+        $scline = ShoppingCart::findOrFail($id);
+     
+        // debug dd($user);
 
+        // return to the edit view
+        return view('shoppingCart.edit', compact('scline'));
     }
 
     /**
