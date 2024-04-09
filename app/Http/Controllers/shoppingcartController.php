@@ -50,7 +50,7 @@ class shoppingcartController extends Controller
             'product_id'=>$request->product_id,
         ]);
 
-        return redirect()->route('shoppingCart.show', ['user' => $request->user_id])
+        return redirect()->route('shoppingCart.show', ['userId' => $request->user_id])
             ->with('success', 'Producto añadido con éxito');
     }
 

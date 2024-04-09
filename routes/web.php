@@ -36,5 +36,6 @@ Route::get('/products', [productsController::class,'index'])->name('products.ind
 Route::resource('shoppingCart', shoppingcartController::class);
 
 Route::get('/shoppingCart/create/{userId}', [shoppingcartController::class,'create'])->name('shoppingCart.create');
+Route::get('/shoppingCart/show/{userId}', [shoppingcartController::class,'show'])->name('shoppingCart.show');
 
 
