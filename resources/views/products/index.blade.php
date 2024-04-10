@@ -29,7 +29,6 @@
                     <button><a href="{{route('products.edit', $prod->id)}}">Editar</a></button>
                     <button><a href="{{route('products.show', $prod->id)}}">Ver</a></button>
                     @csrf
-                    <!--  -->
                     @method('DELETE')
                     <button type="submit">Eliminar</button>
                 </form>

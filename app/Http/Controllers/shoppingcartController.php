@@ -78,11 +78,13 @@ class shoppingcartController extends Controller
     {
         // select all from table shoppingcart with an id
         $scline = ShoppingCart::findOrFail($id);
-     
+
+        $products = Products::get();
+
         // debug dd($user);
 
         // return to the edit view
-        return view('shoppingCart.edit', compact('scline'));
+        return view('shoppingCart.edit', compact('scline', 'products'));
     }
 
     /**
@@ -90,14 +92,33 @@ class shoppingcartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'quantity' => 'required',
+            'product_id' => 'required'
+        ]);
+
+        $sc = ShoppingCart::findOrFail($id);
+  
+        $sc->update([
+            'quantity'=>$request->quantity,
+            'product_id'=>$request->product_id,
+        ]);
+
+        return redirect()->route('shoppingCart.show', ['userId' => $request->user_id])
+            ->with('success', 'Producto editado con éxito');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+
+        $sc = ShoppingCart::findOrFail($id);
+
+        $sc->delete();
+
+        return redirect()->route('shoppingCart.show', ['userId' => $sc->user_id])
+            ->with('success', 'Línea eliminada con éxito');
     }
 }

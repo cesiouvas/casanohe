@@ -40,7 +40,12 @@
                 <div class="col-6 col-md-4">{{$cart_line->name}}</div>
                 <div class="col-6 col-md-4">{{$cart_line->quantity_line}} unidades</div>
                 <div class="col-6 col-md-4">{{$precioTotalLinea}} €
-                    <button><a href="{{route('shoppingCart.edit', $cart_line->scid)}}">Editar línea</a></button>
+                    <form action="{{route('shoppingCart.destroy', $cart_line->scid)}}" method="POST">
+                        <button><a href="{{route('shoppingCart.edit', $cart_line->scid)}}">Editar línea</a></button>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">{{$cart_line->scid}}Eliminar línea</button>
+                    </form>
                 </div>
 
                 @endforeach
