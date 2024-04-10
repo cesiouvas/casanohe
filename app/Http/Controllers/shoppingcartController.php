@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Products;
 use App\Models\ShoppingCart;
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class shoppingcartController extends Controller
@@ -26,7 +26,7 @@ class shoppingcartController extends Controller
     {
         $products = Products::get();
 
-        $user = Users::findOrFail($userId);
+        $user = User::findOrFail($userId);
 
         // return to the create view
         return view('shoppingCart.create', compact('products', 'user'));
@@ -64,7 +64,7 @@ class shoppingcartController extends Controller
                     ->where('user_id', '=', $id)
                     ->get();
 
-        $user = Users::findOrFail($id);
+        $user = User::findOrFail($id);
 
         //debug dd($userCart);  
 

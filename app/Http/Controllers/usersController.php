@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\users;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class usersController extends Controller
@@ -12,7 +12,7 @@ class usersController extends Controller
      */
     public function index()
     {
-        $users = users::get();
+        $users = User::get();
 
         return view('users.index', compact('users'));
     }
@@ -22,7 +22,7 @@ class usersController extends Controller
      */
     public function create()
     {
-        $users = users::get();
+        $users = User::get();
      
         // return to the create view
         return view('users.create', compact('users'));
@@ -45,7 +45,7 @@ class usersController extends Controller
             'type'=>'required',
         ]);
 
-        users::create([
+        User::create([
             'name'=>$request->name,
             'surname'=>$request->surname,
             'email'=>$request->email,
@@ -64,7 +64,7 @@ class usersController extends Controller
     public function show(string $id)
     {
         // select all from table users with an id
-        $user = users::select('users.*')->findOrFail($id);
+        $user = User::select('users.*')->findOrFail($id);
      
         // debug dd($user);
 
@@ -78,7 +78,7 @@ class usersController extends Controller
     public function edit(string $id)
     {
         // select all from table users with an id
-        $user = users::select('users.*')->findOrFail($id);
+        $user = User::select('users.*')->findOrFail($id);
      
         // debug dd($user);
 
@@ -98,7 +98,7 @@ class usersController extends Controller
         ]);
 
         // select the user with id
-        $user = users::findOrFail($id);
+        $user = User::findOrFail($id);
 
         // update user
         $user->update([
@@ -117,7 +117,7 @@ class usersController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = users::findOrFail($id);
+        $user = User::findOrFail($id);
 
         $user->delete();
 

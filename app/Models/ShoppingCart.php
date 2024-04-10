@@ -21,7 +21,7 @@ class ShoppingCart extends Model
 
     // relation with the table users
     public function users() {
-        return $this->belongsTo(Users::class);
+        return $this->belongsTo(User::class);
     }
 
     public function products() {
