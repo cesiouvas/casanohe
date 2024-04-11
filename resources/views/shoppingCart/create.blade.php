@@ -4,7 +4,7 @@
 <div class="pt-4" style="display:flex; justify-content:center; height:100%; align-items:center;">
     <div class="rounded-5 p-2" style="border: 8px solid #ffcc23; background-color: #fcf386;">
         <form action="{{ route('shoppingCart.store') }}" method="POST">
-            <p class="ps-3 pt-3"><a href="{{route('shoppingCart.show', $user->id)}}"><i class="fa-solid fa-arrow-left fa-xl" style="color: #000000;"></i></a></p>
+            <p class="ps-3 pt-3"><a href="{{ route('shoppingCart.show', $user->id) }}"><i class="fa-solid fa-arrow-left fa-xl" style="color: #000000;"></i></a></p>
             <h1 class="text-center">Añadir producto a la cesta</h1>
             <!-- protection against injections -->
             @csrf

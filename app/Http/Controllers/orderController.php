@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
+use App\Models\ShoppingCart;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class orderController extends Controller
@@ -17,9 +20,13 @@ class orderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($userId)
     {
-        //
+        $user = User::findOrFail($userId);
+
+        $products = Products::get();
+
+        return view('order.create', compact('products', 'user'));
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\orderController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\shoppingcartController;
 use App\Http\Controllers\typesController;
@@ -44,3 +45,9 @@ Route::get('/shoppingCart/create/{userId}', [shoppingcartController::class,'crea
 Route::get('/shoppingCart/show/{userId}', [shoppingcartController::class,'show'])->name('shoppingCart.show');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// ----- orders -----
+Route::resource('orders', orderController::class);
+
+Route::get('/orders/create/{userId}', [orderController::class,'create'])->name('orders.create');
+

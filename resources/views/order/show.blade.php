@@ -1,3 +1,7 @@
+@include('layout.styles')
+@extends('layout.main')
+@section('content')
+
 <div>
-    <!-- An unexamined life is not worth living. - Socrates -->
+    
 </div>
