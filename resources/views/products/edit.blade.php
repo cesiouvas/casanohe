@@ -31,14 +31,16 @@
                 <div class="p-3 w-100">
                     <label for="type">Tipo</label>
                     <select class="form-select" name="type" id="type">
-                        <!--<option value="0" selected>--Selecciona un tipo</option>-->
-                        <option value="{{$prod->type_id}}">
-                        @if ($prod->type_id == 1)
-                            Dibujo
-                            @elseif ($prod->type_id == 2)
-                            Crochet
+
+                        @foreach ($types as $type)
+
+                        @if ($prod->type_id == $type->id)
+                        <option value="{{$prod->type_id}}" selected>{{$type->type}}</option>
+                        @else
+                        <option value="{{$prod->type_id}}">{{$type->type}}</option>
                         @endif
-                        </option>
+                        @endforeach
+
                     </select>
                 </div>
                 <div class="p-3 w-100">
@@ -58,7 +60,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" name="price" id="price" value="{{$prod->price}}">
                         <div class="input-group-append">
-                            <span class="input-group-text">$</span>
+                            <span class="input-group-text">€</span>
                         </div>
                     </div>
                 </div>
