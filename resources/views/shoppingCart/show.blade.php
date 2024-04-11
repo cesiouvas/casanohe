@@ -44,7 +44,7 @@
                         <button><a href="{{route('shoppingCart.edit', $cart_line->scid)}}">Editar línea</a></button>
                         @csrf
                         @method('DELETE')
-                        <button type="submit">{{$cart_line->scid}}Eliminar línea</button>
+                        <button type="submit">Eliminar línea</button>
                     </form>
                 </div>
 

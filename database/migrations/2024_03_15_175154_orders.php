@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->decimal('totalPrice', 15, 2);
             $table->string('address');
+            $table->string('order_status');
 
             // foreign key for users
             $table->unsignedBigInteger('user_id');
