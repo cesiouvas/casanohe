@@ -37,19 +37,34 @@ class shoppingcartController extends Controller
      */
     public function store(Request $request)
     {
-    //dd($request);
-        $request->validate([
-            'quantity' => 'required',
-            'user_id' => 'required',
-            'product_id' => 'required'
-        ]);
-  
-        ShoppingCart::create([
-            'quantity'=>$request->quantity,
-            'user_id'=>$request->user_id,
-            'product_id'=>$request->product_id,
-        ]);
+        // datos de carrito
+        $sc = ShoppingCart::select('*')
+                            ->find($request->product_id);
 
+        if (isset($sc)) { // tiene valor (hay una línea con el mismo producto)
+            // sumamos cantidades
+            $totalQuantity = $request->quantity + $sc->quantity;
+
+            // se hace update a la línea del mismo producto
+            $sc->update([
+                'quantity' => $totalQuantity,
+            ]);
+        } else { // sino está en el carrito
+            $request->validate([
+                'quantity' => 'required',
+                'user_id' => 'required',
+                'product_id' => 'required'
+            ]);
+
+            // guardamos el producto normal
+            ShoppingCart::create([
+                'quantity' => $request->quantity,
+                'user_id' => $request->user_id,
+                'product_id' => $request->product_id,
+            ]);
+        }
+
+        // redirect a la página del carrito
         return redirect()->route('shoppingCart.show', ['userId' => $request->user_id])
             ->with('success', 'Producto añadido con éxito');
     }
@@ -60,9 +75,9 @@ class shoppingcartController extends Controller
     public function show(string $id)
     {
         $cart = ShoppingCart::leftJoin('products', 'products.id', '=', 'shoppingcart.product_id')
-                    ->select('shoppingcart.quantity as quantity_line', 'shoppingcart.id as scid', 'shoppingcart.*', 'products.*')
-                    ->where('user_id', '=', $id)
-                    ->get();
+            ->select('shoppingcart.quantity as quantity_line', 'shoppingcart.id as scid', 'shoppingcart.*', 'products.*')
+            ->where('user_id', '=', $id)
+            ->get();
 
         $user = User::findOrFail($id);
 
@@ -98,10 +113,10 @@ class shoppingcartController extends Controller
         ]);
 
         $sc = ShoppingCart::findOrFail($id);
-  
+
         $sc->update([
-            'quantity'=>$request->quantity,
-            'product_id'=>$request->product_id,
+            'quantity' => $request->quantity,
+            'product_id' => $request->product_id,
         ]);
 
         return redirect()->route('shoppingCart.show', ['userId' => $request->user_id])
