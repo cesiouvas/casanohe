@@ -22,7 +22,11 @@ class User extends Model implements Authenticatable
         'email',
         'dni',
         'password',
-        'type'
+        'type',
+        'city',
+        'country',
+        'address',
+        'cp',
     ];
 
     // hidden fields

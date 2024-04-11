@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('type');
+            $table->string('city')->default('');
+            $table->string('country')->default('');
+            $table->string('address')->default('');
+            $table->string('cp')->default('');
             $table->timestamps();
         });
     }
