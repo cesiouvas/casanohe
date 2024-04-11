@@ -64,6 +64,11 @@
             <button class="btn btn-warning"><a href="{{ route('shoppingCart.create', $user->id) }}">Añadir producto a la cesta</a></button>
         </div>
     </div>
+
+</div>
+
+<div class="d-flex justify-content-center p-3">
+    <button class="btn btn-warning"><a href="{{ route('shoppingCart.create', $user->id) }}">Hacer pedido</a></button>
 </div>
 
 

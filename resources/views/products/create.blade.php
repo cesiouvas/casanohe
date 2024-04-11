@@ -52,7 +52,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" name="price" id="price">
                         <div class="input-group-append">
-                            <span class="input-group-text">$</span>
+                            <span class="input-group-text">€</span>
                         </div>
                     </div>
                 </div>

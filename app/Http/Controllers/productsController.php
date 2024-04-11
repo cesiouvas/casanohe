@@ -26,11 +26,6 @@ class productsController extends Controller
      */
     public function create()
     {
-        /*
-        $products = Products::select('products.*', 'types.*')
-                    ->leftJoin('types', 'products.type_id', '=', 'types.id')
-                    ->get();
-        */
 
         $types = Types::get();
 
@@ -56,7 +51,6 @@ class productsController extends Controller
         ]);
 
         //dd($request);
-
 
         Products::create([
             'name'=>$request->name,
@@ -93,11 +87,13 @@ class productsController extends Controller
     {
         // select all from table users with an id
         $prod = Products::select('products.*')->findOrFail($id);
+
+        $types = Types::get();
      
         // debug dd($user);
 
         // return to the show view
-        return view('products.edit', compact('prod'));
+        return view('products.edit', compact('prod', 'types'));
     }
 
     /**
