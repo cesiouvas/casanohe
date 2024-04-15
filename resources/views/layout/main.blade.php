@@ -7,7 +7,7 @@
         <div style="background-color: #a5be00;">
             <nav class="navbar navbar-light pe-3">
                 <div class="d-flex">
-                    <img src="" alt="logo">
+                    <img src="{{ asset('img/logo.png') }}" alt="logo" style="width: 70px;">
                     <h4 class="ps-2">Casanohe</h4>
                 </div>
                 <button class="btn btn-warning" style="background-color: ffa006;">Log out</button>

@@ -24,9 +24,14 @@ class orderController extends Controller
     {
         $user = User::findOrFail($userId);
 
-        $products = Products::get();
+        //$products = Products::get();
 
-        return view('order.create', compact('products', 'user'));
+        $sc = ShoppingCart::select('shoppingcart.quantity as scquantity', 'products.*')
+                            ->leftjoin('products', 'products.id', '=', 'shoppingcart.product_id')
+                            ->where('user_id', $userId)
+                            ->get();
+
+        return view('order.create', compact('user', 'sc'));
     }
 
     /**
