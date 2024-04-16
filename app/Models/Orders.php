@@ -15,7 +15,8 @@ class Orders extends Model
 
     protected $fillable = [
         'totalPrice',
-        'address'
+        'order_status',
+        'user_id'
     ];
 
     // relation with the table users

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->decimal('totalPrice', 15, 2);
-            $table->string('address');
             $table->string('order_status');
 
             // foreign key for users
