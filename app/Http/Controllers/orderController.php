@@ -16,7 +16,12 @@ class orderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Orders::select('users.*', 'orders.*', 'orders.id as orderId')
+            ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+            ->orderBy('orders.created_at')
+            ->get();
+
+        return view('orders.index', compact('orders'));
     }
 
     /**
@@ -33,7 +38,7 @@ class orderController extends Controller
             ->where('user_id', $userId)
             ->get();
 
-        return view('order.create', compact('user', 'sc'));
+        return view('orders.create', compact('user', 'sc'));
     }
 
     /**
@@ -51,14 +56,14 @@ class orderController extends Controller
         Orders::create([
             'totalPrice' => $request->costeTotal,
             'user_id' => $request->userId,
-            'order_status' => 'por confirmar'
+            'order_status' => 0
         ]);
 
         // Obtener el último pedido realizado por el usuario
         $lastOrder = Orders::where('user_id', $request->userId)
             ->orderByDesc('created_at')
             ->first();
-        
+
         // Obtener las líneas de pedido del carrito de compras
         $cartLines = ShoppingCart::where('user_id', $request->userId)->get();
 
@@ -67,7 +72,7 @@ class orderController extends Controller
             // Actualizar la cantidad de productos
             $product = Products::findOrFail($cartLine->product_id);
             $newQuantity = $product->quantity - $cartLine->quantity;
-            
+
             $product->update([
                 'quantity' => $newQuantity
             ]);
@@ -84,6 +89,8 @@ class orderController extends Controller
         ShoppingCart::where('user_id', $request->userId)->delete();
 
         // Redireccionar o devolver una respuesta según sea necesario
+        return redirect()->route('users.index')
+            ->with('success', 'order created!!');
     }
 
     /**
@@ -91,7 +98,18 @@ class orderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $order = Orders::findOrFail($id);
+
+        $orderLines = OrderProduct::select('order_product.quantity as line_quantity', 'order_product.*', 'products.*')
+        ->leftJoin('products', 'products.id', '=', 'order_product.product_id')
+            ->where('order_product.order_id', '=', $id)
+            ->get();
+
+            //dd($orderLines);
+
+        $user = User::findOrFail($order->user_id);
+
+        return view('orders.show', compact('order', 'orderLines', 'user'));
     }
 
     /**

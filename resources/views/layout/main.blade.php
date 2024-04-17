@@ -32,6 +32,7 @@
                 <a class="menu" href="{{route('users.index')}}">Usuarios</a>
                 <a class="menu" href="{{route('types.index')}}">Tipos</a>
                 <a class="menu" href="{{route('products.index')}}">Productos</a>
+                <a class="menu" href="{{route('orders.index')}}">Pedidos</a>
             </nav>
         </div>
     </header>

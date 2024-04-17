@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->decimal('totalPrice', 15, 2);
-            $table->string('order_status');
+            $table->integer('order_status',);
 
             // foreign key for users
             $table->unsignedBigInteger('user_id');

@@ -2,20 +2,6 @@
 @extends('layout.main')
 @section('content')
 
-<style>
-    .btn-outline-success .fa-pen-to-square,
-    .btn-outline-info .fa-eye,
-    .btn-outline-danger .fa-trash-can {
-        color: inherit;
-    }
-
-    .btn-outline-success:hover .fa-pen-to-square,
-    .btn-outline-info:hover .fa-eye,
-    .btn-outline-danger:hover .fa-trash-can {
-        color: white;
-    }
-</style>
-
 <div>
     <table class="table">
         <tr>
@@ -36,6 +22,7 @@
             <td>{{$user->dni}}</td>
             <td>{{$user->email}}</td>
             <td>{{$user->password}}</td>
+            <!-- Sacar el tipo de usuario --> 
             @if ($user->type == 1)
             <td>Admin</td>
             @else

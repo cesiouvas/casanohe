@@ -70,8 +70,6 @@ class usersController extends Controller
         $orders = Orders::where('user_id', '=', $id)
                             ->get();
 
-        
-     
         // debug dd($user);
 
         // return to the show view
