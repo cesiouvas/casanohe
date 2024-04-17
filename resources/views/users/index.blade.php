@@ -1,6 +1,21 @@
 <!-- extends from layout/main -->
 @extends('layout.main')
 @section('content')
+
+<style>
+    .btn-outline-success .fa-pen-to-square,
+    .btn-outline-info .fa-eye,
+    .btn-outline-danger .fa-trash-can {
+        color: inherit;
+    }
+
+    .btn-outline-success:hover .fa-pen-to-square,
+    .btn-outline-info:hover .fa-eye,
+    .btn-outline-danger:hover .fa-trash-can {
+        color: white;
+    }
+</style>
+
 <div>
     <table class="table">
         <tr>
@@ -27,22 +42,27 @@
             <td>Usuario</td>
             @endif
             <td>
-                <form action="{{route('users.destroy', $user->id)}}" method="POST">
-                    <button><a href="{{route('users.edit', $user->id)}}">Editar</a></button>
-                    <button><a href="{{route('users.show', $user->id)}}">Ver</a></button>
+                <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-outline-success">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-outline-info">
+                        <i class="fa-regular fa-eye"></i>
+                    </a>
                     @csrf
-                    <!--  -->
                     @method('DELETE')
-                    <button type="submit">Eliminar</button>
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
                 </form>
             </td>
             <td>
-                <a href="{{route('shoppingCart.show', $user->id)}}">Ver carrito</a>
+                <a href="{{route('shoppingCart.show', $user->id)}}" class="btn btn-outline-warning"><i class="fa-solid fa-cart-shopping"></i></a>
             </td>
         </tr>
 
         @endforeach
     </table>
-    <button><a href="{{route('users.create')}}">Crear usuario</a></button>
+    <button class="btn btn-warning"><a href="{{route('users.create')}}">Crear usuario</a></button>
 </div>
 @endsection

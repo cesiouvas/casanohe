@@ -2,9 +2,25 @@
 <html lang="es">
 @include('layout.styles')
 
-<body style="height: 100vh; background-color: #f2ffc8;">
+<style>
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .menu {
+        padding: 6px;
+    }
+
+    .menu:hover {
+        background-color: #f2ffc8;
+        border-radius: 10px;
+    }
+</style>
+
+<body style="background-color: #f2ffc8; min-height: 100vh; position: relative;">
     <header>
-        <div style="background-color: #a5be00;">
+        <div style="background-color: #a5be00;" class="pb-2">
             <nav class="navbar navbar-light pe-3">
                 <div class="d-flex">
                     <img src="{{ asset('img/logo.png') }}" alt="logo" style="width: 70px;">
@@ -13,9 +29,9 @@
                 <button class="btn btn-warning" style="background-color: ffa006;">Log out</button>
             </nav>
             <nav class="d-flex justify-content-evenly">
-                <a href="{{route('users.index')}}">Usuarios</a>
-                <a href="{{route('types.index')}}">Tipos</a>
-                <a href="{{route('products.index')}}">Productos</a>
+                <a class="menu" href="{{route('users.index')}}">Usuarios</a>
+                <a class="menu" href="{{route('types.index')}}">Tipos</a>
+                <a class="menu" href="{{route('products.index')}}">Productos</a>
             </nav>
         </div>
     </header>
@@ -23,7 +39,10 @@
         <!-- insert content section -->
         @yield('content')
     </div>
-    <footer>OJETE</footer>
+    <footer class="footer bg-dark text-white text-center py-3 fixed-bottom">
+        casanohe ©
+        
+    </footer>
 </body>
 
 </html>

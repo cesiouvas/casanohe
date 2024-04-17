@@ -5,6 +5,7 @@
 
 <div class="pt-4 w-100 d-flex justify-content-center">
     <div>
+        <p class="ps-3 pt-3"><a href="{{route('users.index')}}"><i class="fa-solid fa-arrow-left fa-xl" style="color: #000000;"></i></a></p>
         <div class="row">
             <div class="col-12 col-md-8">
                 <h1>Carrito de {{$user->name}} {{$user->surname}} {{$user->id}}</h1>
@@ -39,13 +40,18 @@
                 ?>
                 <div class="col-6 col-md-4">{{$cart_line->name}}</div>
                 <div class="col-6 col-md-4">{{$cart_line->quantity_line}} unidades</div>
-                <div class="col-6 col-md-4">{{$precioTotalLinea}} €
-                    <form action="{{route('shoppingCart.destroy', $cart_line->scid)}}" method="POST">
-                        <button><a href="{{route('shoppingCart.edit', $cart_line->scid)}}">Editar línea</a></button>
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Eliminar línea</button>
-                    </form>
+                <div class="col-6 col-md-4">
+                    <div class="d-flex">
+                        <p class="pe-2">{{$precioTotalLinea}} €</p>
+                        <form action="{{route('shoppingCart.destroy', $cart_line->scid)}}" method="POST">
+                            <a href="{{route('shoppingCart.edit', $cart_line->scid)}}" class="btn btn-outline-success">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></button>
+                        </form>
+                    </div>
                 </div>
 
                 @endforeach

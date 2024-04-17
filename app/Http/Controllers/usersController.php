@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orders;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -65,11 +66,16 @@ class usersController extends Controller
     {
         // select all from table users with an id
         $user = User::select('users.*')->findOrFail($id);
+
+        $orders = Orders::where('user_id', '=', $id)
+                            ->get();
+
+        
      
         // debug dd($user);
 
         // return to the show view
-        return view('users.show', compact('user'));
+        return view('users.show', compact('user', 'orders'));
     }
 
     /**
