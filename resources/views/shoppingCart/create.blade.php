@@ -13,7 +13,7 @@
                 <div class="p-3">
                     <label for="product">Producto</label><br>
                     <select class="form-select" name="product_id" id="product_id">
-                        <option selected disabled>--selecciona un tipo</option>
+                        <option selected disabled>--Selecciona un producto</option>
                         @foreach ($products as $product)
                         <option value="{{$product->id}}">{{$product->name}}</option>
                         @endforeach

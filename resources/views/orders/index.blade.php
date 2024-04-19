@@ -36,7 +36,7 @@
                 @endswitch
             </td>
             <td>
-                <form action="{{ route('orders.destroy', $order->orderId) }}">
+                <form action="{{ route('orders.destroy', $order->orderId) }}" method="POST">
                     <a href="{{ route('orders.show', $order->orderId) }}" class="btn btn-outline-info">
                         <i class="fa-regular fa-eye"></i>
                     </a>

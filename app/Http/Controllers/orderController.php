@@ -117,7 +117,7 @@ class orderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // los pedidos no se pueden editar
     }
 
     /**
@@ -125,7 +125,7 @@ class orderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // los pedidos no se pueden editar
     }
 
     /**
@@ -133,6 +133,11 @@ class orderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $order = Orders::findOrFail($id);
+
+        $order->delete();
+
+        return redirect()->route('orders.index')
+            ->with('success', 'order deleted!!');
     }
 }
