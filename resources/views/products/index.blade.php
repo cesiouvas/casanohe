@@ -13,6 +13,7 @@
             <th>Cantidad</th>
             <th>Precio</th>
             <th>Opciones</th>
+            <th>Personalizar</th>
         </tr>
 
         @foreach($products as $prod)
@@ -38,6 +39,9 @@
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
                 </form>
+            </td>
+            <td>
+                <a href="{{ route('custom.create', ['product' => $prod->id]) }}" class="btn btn-outline-warning"><i class="fa-solid fa-palette"></i></a>
             </td>
         </tr>
         @endforeach

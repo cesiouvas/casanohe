@@ -42,7 +42,6 @@
     </div>
     <footer class="footer bg-dark text-white text-center py-3 fixed-bottom">
         casanohe ©
-        
     </footer>
 </body>
 

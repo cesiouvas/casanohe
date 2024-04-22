@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('subtype');
             $table->integer('quantity');
             $table->decimal('price', 15, 2);
+            $table->integer('status');
 
             // foreign key for users
             $table->unsignedBigInteger('user_id');

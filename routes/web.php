@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\customController;
 use App\Http\Controllers\orderController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\shoppingcartController;
@@ -50,4 +51,9 @@ Route::get('/shoppingCart/show/{userId}', [shoppingcartController::class,'show']
 Route::resource('orders', orderController::class);
 
 Route::get('/orders/create/{userId}', [orderController::class,'create'])->name('orders.create');
+
+// ----- custom -----
+Route::resource('custom', customController::class);
+
+Route::get('/custom/create/{product}', [customController::class,'create'])->name('custom.create');
 

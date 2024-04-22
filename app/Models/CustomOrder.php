@@ -16,8 +16,14 @@ class CustomOrder extends Model
     protected $fillable = [
         'name',
         'desc',
+        'image',
+        'quantity',
         'price',
-        'quantity'
+        'type_id',
+        'subtype',
+        'comments',
+        'status',
+        'user_id',
     ];
 
     // relation with the table users
