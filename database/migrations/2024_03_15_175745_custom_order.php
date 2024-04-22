@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('desc');
+            $table->string('comments');
             $table->string('image')->default('');
             $table->string('subtype');
-            $table->string('colour');
-            $table->string('size');
             $table->integer('quantity');
             $table->decimal('price', 15, 2);
 

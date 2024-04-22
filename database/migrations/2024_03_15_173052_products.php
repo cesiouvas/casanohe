@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('desc');
             $table->string('image')->default('');
             $table->string('subtype');
-            $table->string('colour');
-            $table->string('size');
             $table->integer('quantity');
             $table->decimal('price', 15, 2);
 
