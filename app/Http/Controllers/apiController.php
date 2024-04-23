@@ -51,4 +51,14 @@ class apiController extends Controller
             'token_type' => 'Bearer' // tipo de token
         ]);
     }
+
+    public function logout() {
+        // borra el token
+        auth()->user()->token()->revoke();
+
+        return response()->json([
+            "status" => true,
+            "message" => "user logged out"
+        ]);
+    }
 }
