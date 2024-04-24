@@ -63,6 +63,7 @@ class apiController extends Controller
         ]);
     }
 
+    // recoger pocos dibujos para el index
     public function getSomeDibujos() {
         $dibujos = Products::where('type_id', '=', 1)
             ->take(3)
@@ -70,6 +71,17 @@ class apiController extends Controller
 
         return response()->json([
             "data" => $dibujos,
+        ]);
+    }
+
+    // recoger pocos tejidos para el index
+    public function getSomeTejidos() {
+        $tejidos = Products::where('type_id', '=', 2)
+            ->take(3)
+            ->get();
+
+        return response()->json([
+            "data" => $tejidos,
         ]);
     }
 }

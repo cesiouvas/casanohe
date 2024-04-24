@@ -26,8 +26,10 @@ Route::get('users', [apiController::class, 'users']);
 // login
 Route::post('login', [apiController::class, 'login']);
 
-// get some dibujos
+// get some dibujos & tejidos (index)
 Route::get('getSomeDibujos', [apiController::class, 'getSomeDibujos']);
+Route::get('getSomeTejidos', [apiController::class, 'getSomeTejidos']);
+
 
 
 Route::group(
