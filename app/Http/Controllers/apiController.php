@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +60,16 @@ class apiController extends Controller
         return response()->json([
             "status" => true,
             "message" => "user logged out"
+        ]);
+    }
+
+    public function getSomeDibujos() {
+        $dibujos = Products::where('type_id', '=', 1)
+            ->take(3)
+            ->get();
+
+        return response()->json([
+            "data" => $dibujos,
         ]);
     }
 }

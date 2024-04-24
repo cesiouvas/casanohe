@@ -26,6 +26,10 @@ Route::get('users', [apiController::class, 'users']);
 // login
 Route::post('login', [apiController::class, 'login']);
 
+// get some dibujos
+Route::get('getSomeDibujos', [apiController::class, 'getSomeDibujos']);
+
+
 Route::group(
     ["middleware" => ["auth:api"]],
     function () {
