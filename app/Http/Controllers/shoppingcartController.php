@@ -37,9 +37,16 @@ class shoppingcartController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'quantity' => 'required',
+            'user_id' => 'required',
+            'product_id' => 'required'
+        ]); 
+
         // datos de carrito
-        $sc = ShoppingCart::select('*')
-                            ->find($request->product_id);
+        $sc = ShoppingCart::where('user_id', $request->user_id)
+            ->where('product_id', $request->product_id)
+            ->first();
 
         if (isset($sc)) { // tiene valor (hay una línea con el mismo producto)
             // sumamos cantidades
@@ -50,11 +57,6 @@ class shoppingcartController extends Controller
                 'quantity' => $totalQuantity,
             ]);
         } else { // sino está en el carrito
-            $request->validate([
-                'quantity' => 'required',
-                'user_id' => 'required',
-                'product_id' => 'required'
-            ]);
 
             // guardamos el producto normal
             ShoppingCart::create([
