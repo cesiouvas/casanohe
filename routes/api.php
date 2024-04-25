@@ -27,10 +27,7 @@ Route::get('users', [apiController::class, 'users']);
 Route::post('login', [apiController::class, 'login']);
 
 // get some dibujos & tejidos (index)
-Route::get('getSomeDibujos', [apiController::class, 'getSomeDibujos']);
-Route::get('getSomeTejidos', [apiController::class, 'getSomeTejidos']);
-
-
+Route::get('getAllProducts', [apiController::class, 'getAllProducts']);
 
 Route::group(
     ["middleware" => ["auth:api"]],

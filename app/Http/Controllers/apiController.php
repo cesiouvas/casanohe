@@ -20,14 +20,15 @@ class apiController extends Controller
     }
 
     // login ususarios POST
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string'
         ]);
 
         $credenciales = request([
-            'email','password'
+            'email', 'password'
         ]);
 
         if (!Auth::attempt($credenciales)) {
@@ -53,7 +54,8 @@ class apiController extends Controller
         ]);
     }
 
-    public function logout() {
+    public function logout()
+    {
         // borra el token
         auth()->user()->token()->revoke();
 
@@ -64,24 +66,27 @@ class apiController extends Controller
     }
 
     // recoger pocos dibujos para el index
-    public function getSomeDibujos() {
-        $dibujos = Products::where('type_id', '=', 1)
-            ->take(3)
-            ->get();
+    public function getAllProducts(Request $request)
+    {
+        // declarar query de productos
+        $products = Products::select('*');
 
+        // si tiene tipo
+        if (isset($request->type)) {
+            // busca por tipo
+            $products->where('type_id', $request->type);
+        }
+
+        // recoger solo unos pocos (index)
+        if ($request->some == 1) {
+            $products->take(3);
+        }
+
+        $result = $products->get();
+
+        // devuelve datos al js
         return response()->json([
-            "data" => $dibujos,
-        ]);
-    }
-
-    // recoger pocos tejidos para el index
-    public function getSomeTejidos() {
-        $tejidos = Products::where('type_id', '=', 2)
-            ->take(3)
-            ->get();
-
-        return response()->json([
-            "data" => $tejidos,
+            "data" => $result,
         ]);
     }
 }
