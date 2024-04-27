@@ -20,11 +20,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 */
 
-//usuarios
+// usuarios
 Route::get('users', [apiController::class, 'users']);
 
 // login
 Route::post('login', [apiController::class, 'login']);
+
+// register
+Route::post('register', [apiController::class, 'register']);
 
 // get some dibujos & tejidos (index)
 Route::get('getAllProducts', [apiController::class, 'getAllProducts']);

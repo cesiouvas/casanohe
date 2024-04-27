@@ -54,6 +54,34 @@ class apiController extends Controller
         ]);
     }
 
+    public function register(Request $request) {
+        $request->validate([
+            'name' => 'required|string',
+            'surname' => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'passwd' => 'required|string|confirmed' // Este validador espera un campo 'passwd_confirmation'
+        ]);
+    
+        // No es necesario validar 'passwd_confirmation' explícitamente, ya que el validador 'confirmed' se encarga de eso.
+    
+        $user = new User([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email' => $request->email,
+            'password' => bcrypt($request->passwd),
+            'dni' => '',
+            'type' => 1
+        ]);
+    
+        $user->save();
+    
+        return response()->json([
+            'status' => true,
+            'message' => 'User successfully created!'
+        ]);
+    }
+    
+
     public function logout()
     {
         // borra el token
