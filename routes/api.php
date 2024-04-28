@@ -32,10 +32,16 @@ Route::post('register', [apiController::class, 'register']);
 // get some dibujos & tejidos (index)
 Route::get('getAllProducts', [apiController::class, 'getAllProducts']);
 
+// get product details
+Route::get('getProductDetails', [apiController::class, 'getProductDetails']);
+
 Route::group(
     ["middleware" => ["auth:api"]],
     function () {
         // logout
         Route::get('logout', [apiController::class, 'logout']);
+
+        // add product to cart
+        Route::post('addProductToCart', [apiController::class, 'addProductToCart']);
     }
 );

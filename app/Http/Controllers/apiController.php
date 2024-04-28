@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\ShoppingCart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -115,6 +116,51 @@ class apiController extends Controller
         // devuelve datos al js
         return response()->json([
             "data" => $result,
+        ]);
+    }
+
+    public function getProductDetails(Request $request) {
+        $product = Products::findOrFail($request->product_id);
+
+        return response()->json([
+            "data" => $product,
+        ]);
+    }
+
+    public function addProductToCart(Request $request) {
+        $user = Auth::user();
+
+        $request->validate([
+            'quantity' => 'required',
+            'product_id' => 'required'
+        ]); 
+
+        // datos de carrito
+        $sc = ShoppingCart::where('user_id', $user->id)
+            ->where('product_id', $request->product_id)
+            ->first();
+
+        if (isset($sc)) { // tiene valor (hay una línea con el mismo producto)
+            // sumamos cantidades
+            $totalQuantity = $request->quantity + $sc->quantity;
+
+            // se hace update a la línea del mismo producto
+            $sc->update([
+                'quantity' => $totalQuantity,
+            ]);
+        } else { // sino está en el carrito
+
+            // guardamos el producto normal
+            ShoppingCart::create([
+                'quantity' => $request->quantity,
+                'user_id' => $user->id,
+                'product_id' => $request->product_id,
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Product added!'
         ]);
     }
 }
