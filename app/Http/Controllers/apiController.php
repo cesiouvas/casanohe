@@ -163,4 +163,17 @@ class apiController extends Controller
             'message' => 'Product added!'
         ]);
     }
+
+    public function getProductsCarrito() {
+        $user = Auth::user();
+
+        $carrito = ShoppingCart::leftJoin('products', 'products.id', '=', 'shoppingcart.product_id')
+        ->select('shoppingcart.quantity as quantity_line', 'shoppingcart.id as scid', 'shoppingcart.*', 'products.*')
+        ->where('user_id', $user->id)
+        ->get();
+
+        return response()->json([
+            "data" => $carrito,
+        ]);
+    }
 }

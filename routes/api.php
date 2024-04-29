@@ -43,5 +43,8 @@ Route::group(
 
         // add product to cart
         Route::post('addProductToCart', [apiController::class, 'addProductToCart']);
+
+        // get shopping cart
+        Route::get('getProductsCarrito', [apiController::class, 'getProductsCarrito']);
     }
 );
