@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('shoppingCart', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantity');
+            $table->integer('line_quantity');
+            $table->decimal('line_price', 15, 2);
             
             // foreign key for users
             $table->unsignedBigInteger('user_id');
