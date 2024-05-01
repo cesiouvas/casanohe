@@ -52,17 +52,30 @@ class shoppingcartController extends Controller
             // sumamos cantidades
             $totalQuantity = $request->quantity + $sc->quantity;
 
+            // precio de línea
+            $prod = Products::findOrFail($sc->product_id);
+            $totalPrice = $prod->price * $totalQuantity;
+
             // se hace update a la línea del mismo producto
             $sc->update([
-                'quantity' => $totalQuantity,
+                'line_quantity' => $totalQuantity,
+                'line_price' => $totalPrice
+            ]);
+
+            // se hace update a la línea del mismo producto
+            $sc->update([
+                'line_quantity' => $totalQuantity,
             ]);
         } else { // sino está en el carrito
+            $prod = Products::findOrFail($request->product_id);
+            $totalPrice = $prod->price * $request->quantity;
 
             // guardamos el producto normal
             ShoppingCart::create([
-                'quantity' => $request->quantity,
+                'line_quantity' => $request->quantity,
                 'user_id' => $request->user_id,
                 'product_id' => $request->product_id,
+                'line_price' => $totalPrice
             ]);
         }
 
@@ -77,7 +90,7 @@ class shoppingcartController extends Controller
     public function show(string $id)
     {
         $cart = ShoppingCart::leftJoin('products', 'products.id', '=', 'shoppingcart.product_id')
-            ->select('shoppingcart.quantity as quantity_line', 'shoppingcart.id as scid', 'shoppingcart.*', 'products.*')
+            ->select('shoppingcart.line_quantity as quantity_line', 'shoppingcart.id as scid', 'shoppingcart.*', 'products.*')
             ->where('user_id', '=', $id)
             ->get();
 

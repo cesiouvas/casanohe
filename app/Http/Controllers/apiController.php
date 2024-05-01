@@ -186,15 +186,20 @@ class apiController extends Controller
 
     public function actualizarCarrito(Request $request) {
         $carritos = $request->cartIds;
-        $cantidadLineat = $request->quantityLines;
+        $cantidadLinea = $request->quantityLines;
 
         $user = Auth::user();
 
-        for ($i=0; $i < strlen($request->cartIds); $i++) { 
+        for ($i=0; $i < count($carritos); $i++) { 
             $carrito = ShoppingCart::find($carritos[$i]);
 
-            if ($carrito->line_quantity) {
-                # code...
+            if ($carrito->line_quantity != $cantidadLinea[$i]) {
+                $product = Products::find($carrito->product_id);
+
+                $carrito->update([
+                    'line_quantity' => $cantidadLinea[$i],
+                    'line_price' => $product->price + $cantidadLinea[$i]
+                ]);
             }
         }
     }
