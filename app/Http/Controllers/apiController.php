@@ -139,22 +139,29 @@ class apiController extends Controller
         $sc = ShoppingCart::where('user_id', $user->id)
             ->where('product_id', $request->product_id)
             ->first();
-
+            
         if (isset($sc)) { // tiene valor (hay una línea con el mismo producto)
             // sumamos cantidades
-            $totalQuantity = $request->quantity + $sc->quantity;
+            $totalQuantity = $request->quantity + $sc->line_quantity;
+
+            $prod = Products::findOrFail($sc->product_id);
+            $totalPrice = $prod->price * $totalQuantity;
 
             // se hace update a la línea del mismo producto
             $sc->update([
-                'quantity' => $totalQuantity,
+                'line_quantity' => $totalQuantity,
+                'line_price' => $totalPrice
             ]);
         } else { // sino está en el carrito
+            $prod = Products::findOrFail($request->product_id);
+            $totalPrice = $prod->price * $request->quantity;
 
             // guardamos el producto normal
             ShoppingCart::create([
-                'quantity' => $request->quantity,
+                'line_quantity' => $request->quantity,
                 'user_id' => $user->id,
                 'product_id' => $request->product_id,
+                'line_price' => $totalPrice
             ]);
         }
 
@@ -168,12 +175,27 @@ class apiController extends Controller
         $user = Auth::user();
 
         $carrito = ShoppingCart::leftJoin('products', 'products.id', '=', 'shoppingcart.product_id')
-        ->select('shoppingcart.quantity as quantity_line', 'shoppingcart.id as scid', 'shoppingcart.*', 'products.*')
+        ->select('shoppingcart.id as scid', 'shoppingcart.*', 'products.*')
         ->where('user_id', $user->id)
         ->get();
 
         return response()->json([
             "data" => $carrito,
         ]);
+    }
+
+    public function actualizarCarrito(Request $request) {
+        $carritos = $request->cartIds;
+        $cantidadLineat = $request->quantityLines;
+
+        $user = Auth::user();
+
+        for ($i=0; $i < strlen($request->cartIds); $i++) { 
+            $carrito = ShoppingCart::find($carritos[$i]);
+
+            if ($carrito->line_quantity) {
+                # code...
+            }
+        }
     }
 }

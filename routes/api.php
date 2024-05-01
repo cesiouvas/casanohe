@@ -46,5 +46,8 @@ Route::group(
 
         // get shopping cart
         Route::get('getProductsCarrito', [apiController::class, 'getProductsCarrito']);
+
+        // actualizar carrito
+        Route::put('actualizarCarrito', [apiController::class, 'actualizarCarrito']);
     }
 );
