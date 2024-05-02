@@ -202,5 +202,22 @@ class apiController extends Controller
                 ]);
             }
         }
+        return response()->json([
+            "data" => $carrito,
+        ]);
+    }
+
+    public function deleteCartLine(Request $request) {
+        $user = Auth::user();
+
+        $idCart = $request->line;
+
+        $sc = ShoppingCart::findOrFail($idCart);
+
+        $sc->delete();
+
+        return response()->json([
+            "data" => $sc,
+        ]);
     }
 }

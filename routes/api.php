@@ -49,5 +49,8 @@ Route::group(
 
         // actualizar carrito
         Route::put('actualizarCarrito', [apiController::class, 'actualizarCarrito']);
+
+        // eliminar linea de carrito
+        Route::delete('deleteCartLine', [apiController::class, 'deleteCartLine']);
     }
 );
