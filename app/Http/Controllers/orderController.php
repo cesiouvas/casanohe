@@ -33,7 +33,7 @@ class orderController extends Controller
 
         //$products = Products::get();
 
-        $sc = ShoppingCart::select('shoppingcart.quantity as scquantity', 'products.*')
+        $sc = ShoppingCart::select('shoppingcart.line_quantity as scquantity', 'products.*')
             ->leftjoin('products', 'products.id', '=', 'shoppingcart.product_id')
             ->where('user_id', $userId)
             ->get();
@@ -71,7 +71,7 @@ class orderController extends Controller
         foreach ($cartLines as $cartLine) {
             // Actualizar la cantidad de productos
             $product = Products::findOrFail($cartLine->product_id);
-            $newQuantity = $product->quantity - $cartLine->quantity;
+            $newQuantity = $product->quantity - $cartLine->line_quantity;
 
             $product->update([
                 'quantity' => $newQuantity
@@ -79,7 +79,7 @@ class orderController extends Controller
 
             // Crear línea de pedido
             OrderProduct::create([
-                'quantity' => $cartLine->quantity,
+                'quantity' => $cartLine->line_quantity,
                 'product_id' => $cartLine->product_id,
                 'order_id' => $lastOrder->id
             ]);

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderProduct;
+use App\Models\Orders;
 use App\Models\Products;
 use App\Models\ShoppingCart;
 use App\Models\User;
@@ -218,6 +220,55 @@ class apiController extends Controller
 
         return response()->json([
             "data" => $sc,
+        ]);
+    }
+
+    public function crearPedido(Request $request) {
+        $user = Auth::user();
+
+        // Validación de datos
+        $request->validate([
+            'totalPrice' => 'required'
+        ]);
+
+        // Crear pedido
+        Orders::create([
+            'totalPrice' => $request->totalPrice,
+            'user_id' => $user->id,
+            'order_status' => 0
+        ]);
+
+        // Obtener el último pedido realizado por el usuario
+        $lastOrder = Orders::where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->first();
+
+        // Obtener las líneas de pedido del carrito de compras
+        $cartLines = ShoppingCart::where('user_id', $user->id)->get();
+
+        // Procesar cada línea del carrito de compras
+        foreach ($cartLines as $cartLine) {
+            // Actualizar la cantidad de productos
+            $product = Products::findOrFail($cartLine->product_id);
+            $newQuantity = $product->quantity - $cartLine->line_quantity;
+
+            $product->update([
+                'quantity' => $newQuantity
+            ]);
+
+            // Crear línea de pedido
+            OrderProduct::create([
+                'quantity' => $cartLine->line_quantity,
+                'product_id' => $cartLine->product_id,
+                'order_id' => $lastOrder->id
+            ]);
+        }
+
+        // Limpiar el carrito de compras después de completar el pedido
+        ShoppingCart::where('user_id', $user->id)->delete();
+
+        return response()->json([
+            "msg" => "pedido realizado",
         ]);
     }
 }

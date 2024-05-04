@@ -52,5 +52,8 @@ Route::group(
 
         // eliminar linea de carrito
         Route::delete('deleteCartLine', [apiController::class, 'deleteCartLine']);
+
+        // procesar pedido
+        Route::post('crearPedido', [apiController::class, 'crearPedido']);
     }
 );
