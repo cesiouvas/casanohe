@@ -177,7 +177,8 @@ class apiController extends Controller
         $user = Auth::user();
 
         $carrito = ShoppingCart::leftJoin('products', 'products.id', '=', 'shoppingcart.product_id')
-        ->select('shoppingcart.id as scid', 'shoppingcart.*', 'products.*')
+        ->leftjoin('types', 'types.id', '=', 'products.type_id')
+        ->select('shoppingcart.id as scid', 'shoppingcart.*', 'products.*', 'types.type')
         ->where('user_id', $user->id)
         ->get();
 
