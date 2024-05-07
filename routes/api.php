@@ -41,6 +41,9 @@ Route::group(
         // logout
         Route::get('logout', [apiController::class, 'logout']);
 
+        // get user data
+        Route::get('getUserData', [apiController::class, 'getUserData']);
+
         // add product to cart
         Route::post('addProductToCart', [apiController::class, 'addProductToCart']);
 

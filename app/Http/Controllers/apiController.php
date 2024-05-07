@@ -22,6 +22,14 @@ class apiController extends Controller
         ]);
     }
 
+    public function getUserData() {
+        $user = Auth::user();
+
+        return response()->json([
+            "data" => $user,
+        ]);
+    }
+
     // login ususarios POST
     public function login(Request $request)
     {
