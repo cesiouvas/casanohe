@@ -58,5 +58,8 @@ Route::group(
 
         // procesar pedido
         Route::post('crearPedido', [apiController::class, 'crearPedido']);
+
+        // get datos de usuario
+        Route::post('getUserData', [apiController::class, 'getUserData']);
     }
 );
