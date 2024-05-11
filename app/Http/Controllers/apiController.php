@@ -22,11 +22,48 @@ class apiController extends Controller
         ]);
     }
 
-    public function getUserData() {
+    public function getUserData()
+    {
         $user = Auth::user();
 
         return response()->json([
             "data" => $user,
+        ]);
+    }
+
+    public function updateUserData(Request $request)
+    {
+        // validar datos
+        $request->validate([
+            'name' => 'required',
+            'surname' => 'required',
+            'dni' => 'required',
+            'country' => 'required',
+            'city' => 'required',
+            'address' => 'required',
+            'cp' => 'required',
+        ]);
+
+        // obtener usuario a editar
+        $user = Auth::user();
+
+        // instanciar usuario como clase user
+        $usuario = User::findOrFail($user->id);
+
+        // actualizar datos
+        $usuario->update([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'dni' => $request->dni,
+            //'telephone' => $request->telephone,
+            'country' => $request->country,
+            'city' => $request->city,
+            'address' => $request->address,
+            'cp' => $request->cp,
+        ]);
+
+        return response()->json([
+            "msg" => 'Datos de usuario actualizados correctamente',
         ]);
     }
 
@@ -65,16 +102,17 @@ class apiController extends Controller
         ]);
     }
 
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $request->validate([
             'name' => 'required|string',
             'surname' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'passwd' => 'required|string|confirmed' // Este validador espera un campo 'passwd_confirmation'
         ]);
-    
+
         // No es necesario validar 'passwd_confirmation' explícitamente, ya que el validador 'confirmed' se encarga de eso.
-    
+
         $user = new User([
             'name' => $request->name,
             'surname' => $request->surname,
@@ -83,15 +121,15 @@ class apiController extends Controller
             'dni' => '',
             'type' => 1
         ]);
-    
+
         $user->save();
-    
+
         return response()->json([
             'status' => true,
             'message' => 'User successfully created!'
         ]);
     }
-    
+
 
     public function logout()
     {
@@ -129,7 +167,8 @@ class apiController extends Controller
         ]);
     }
 
-    public function getProductDetails(Request $request) {
+    public function getProductDetails(Request $request)
+    {
         $product = Products::findOrFail($request->product_id);
 
         return response()->json([
@@ -137,19 +176,20 @@ class apiController extends Controller
         ]);
     }
 
-    public function addProductToCart(Request $request) {
+    public function addProductToCart(Request $request)
+    {
         $user = Auth::user();
 
         $request->validate([
             'quantity' => 'required',
             'product_id' => 'required'
-        ]); 
+        ]);
 
         // datos de carrito
         $sc = ShoppingCart::where('user_id', $user->id)
             ->where('product_id', $request->product_id)
             ->first();
-            
+
         if (isset($sc)) { // tiene valor (hay una línea con el mismo producto)
             // sumamos cantidades
             $totalQuantity = $request->quantity + $sc->line_quantity;
@@ -181,27 +221,29 @@ class apiController extends Controller
         ]);
     }
 
-    public function getProductsCarrito() {
+    public function getProductsCarrito()
+    {
         $user = Auth::user();
 
         $carrito = ShoppingCart::leftJoin('products', 'products.id', '=', 'shoppingcart.product_id')
-        ->leftjoin('types', 'types.id', '=', 'products.type_id')
-        ->select('shoppingcart.id as scid', 'shoppingcart.*', 'products.*', 'types.type')
-        ->where('user_id', $user->id)
-        ->get();
+            ->leftjoin('types', 'types.id', '=', 'products.type_id')
+            ->select('shoppingcart.id as scid', 'shoppingcart.*', 'products.*', 'types.type')
+            ->where('user_id', $user->id)
+            ->get();
 
         return response()->json([
             "data" => $carrito,
         ]);
     }
 
-    public function actualizarCarrito(Request $request) {
+    public function actualizarCarrito(Request $request)
+    {
         $carritos = $request->cartIds;
         $cantidadLinea = $request->quantityLines;
 
         $user = Auth::user();
 
-        for ($i=0; $i < count($carritos); $i++) { 
+        for ($i = 0; $i < count($carritos); $i++) {
             $carrito = ShoppingCart::find($carritos[$i]);
 
             if ($carrito->line_quantity != $cantidadLinea[$i]) {
@@ -218,7 +260,8 @@ class apiController extends Controller
         ]);
     }
 
-    public function deleteCartLine(Request $request) {
+    public function deleteCartLine(Request $request)
+    {
         $user = Auth::user();
 
         $idCart = $request->line;
@@ -232,7 +275,8 @@ class apiController extends Controller
         ]);
     }
 
-    public function crearPedido(Request $request) {
+    public function crearPedido(Request $request)
+    {
         $user = Auth::user();
 
         // Validación de datos
