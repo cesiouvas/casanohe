@@ -46,8 +46,6 @@ Route::group(
         
         // actualizar datos de usuario
         Route::post('updateUserData', [ApiController::class, 'updateUserData']);
-        
-        Route::post('aaaa', [ApiController::class, 'aaaa']);
 
         // add product to cart
         Route::post('addProductToCart', [apiController::class, 'addProductToCart']);
