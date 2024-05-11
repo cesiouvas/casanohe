@@ -26,7 +26,10 @@
                     <img src="{{ asset('img/logo.png') }}" alt="logo" style="width: 70px;">
                     <h4 class="ps-2">Casanohe</h4>
                 </div>
-                <button class="btn btn-warning" style="background-color: ffa006;">Log out</button>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    <button type="submit" class="btn btn-warning" style="background-color: ffa006;">Log out</button>
+
+                </form>
             </nav>
             <nav class="d-flex justify-content-evenly">
                 <a class="menu" href="{{route('users.index')}}">Usuarios</a>

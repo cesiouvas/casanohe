@@ -45,7 +45,7 @@ Route::resource('shoppingCart', shoppingcartController::class);
 Route::get('/shoppingCart/create/{userId}', [shoppingcartController::class,'create'])->name('shoppingCart.create');
 Route::get('/shoppingCart/show/{userId}', [shoppingcartController::class,'show'])->name('shoppingCart.show');
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // ----- orders -----
 Route::resource('orders', orderController::class);
