@@ -117,6 +117,11 @@ class customController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $co = CustomOrder::findOrFail($id);
+
+        $co->delete();
+
+        return redirect()->route('custom.index')
+            ->with('success', 'custom order deleted!!');
     }
 }
