@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->integer('status');
             $table->decimal('price', 15, 2);
+            $table->string('admin_msg');
 
             // foreign key for users
             $table->unsignedBigInteger('user_id');

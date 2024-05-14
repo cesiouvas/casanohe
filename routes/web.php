@@ -57,3 +57,4 @@ Route::resource('custom', customController::class);
 
 Route::get('/custom/create/{product}', [customController::class,'create'])->name('custom.create');
 
+

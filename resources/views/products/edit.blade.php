@@ -67,7 +67,7 @@
             </div>
 
             <div class="d-flex justify-content-end p-3">
-                <button class="btn btn-warning" type="submit">Crear Producto</button>
+                <button class="btn btn-warning" type="submit">Editar Producto</button>
             </div>
         </form>
     </div>

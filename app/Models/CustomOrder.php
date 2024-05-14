@@ -19,6 +19,7 @@ class CustomOrder extends Model
         'status',
         'quantity',
         'price',
+        'admin_msg',
         'user_id',
     ];
 

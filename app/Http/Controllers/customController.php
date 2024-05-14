@@ -53,6 +53,7 @@ class customController extends Controller
             'user_id' => $request->user,
             'quantity' => $request->quantity,
             'price' => 0,
+            'admin_msg' => '',
             'status' => 0
         ]);
 
@@ -65,7 +66,7 @@ class customController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -73,7 +74,11 @@ class customController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $custom = CustomOrder::leftJoin('users', 'users.id', '=', 'custom_orders.user_id')
+            ->findOrFail($id);
+
+        // return to the edit view
+        return view('custom.edit', compact('custom'));
     }
 
     /**
@@ -81,7 +86,17 @@ class customController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        dd($request);
+        $request->validate([
+            'price' => 'required',
+            'comments' => 'required',
+            'status' => 'required',
+            'quantity' => 'required',
+            'admin_msg' => 'required'
+        ]);
+
+        
     }
 
     /**
