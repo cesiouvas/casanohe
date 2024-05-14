@@ -11,13 +11,8 @@
             <!-- protection against injections -->
             @csrf
             <div class="visually-hidden">
-                <input class="form-control" type="text" name="name" id="name" value="{{ $product->name }}">
-                <input type="text" class="form-control" name="price" id="price" value="{{ $product->price + 3 }}">
-                <input class="form-control" type="text" name="type" id="type" value="{{ $product->type_id }}">
-                <input class="form-control" type="text" name="subtype" id="subtype" value="{{ $product->subtype }}">
-                <textarea class="form-control" name="desc" id="desc" cols="30" rows="5">{{ $product->desc }}</textarea>
+                <input class="form-control" type="text" name="product" id="product" value="{{ $product->id }}">
             </div>
-
             <div class="d-flex justify-content-center">
                 <div class="p-3 w-100">
                     <label for="name">Nombre</label>

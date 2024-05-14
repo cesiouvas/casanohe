@@ -36,6 +36,7 @@
                 <a class="menu" href="{{route('types.index')}}">Tipos</a>
                 <a class="menu" href="{{route('products.index')}}">Productos</a>
                 <a class="menu" href="{{route('orders.index')}}">Pedidos</a>
+                <a class="menu" href="{{route('custom.index')}}">Personalizados</a>
             </nav>
         </div>
     </header>

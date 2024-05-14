@@ -14,7 +14,11 @@ class customController extends Controller
      */
     public function index()
     {
-        //
+        $custom = CustomOrder::join("products", "products.id", "=", "custom_orders.product_id")
+            ->select('custom_orders.*', 'products.name')
+            ->get();
+
+        return view('custom.index', compact('custom'));
     }
 
     /**
@@ -36,11 +40,7 @@ class customController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-            'desc' => 'required',
-            'type' => 'required',
-            'subtype' => 'required',
+            'product' => 'required',
             'comments' => 'required',
             'user' => 'required',
             'quantity' => 'required',
@@ -48,14 +48,11 @@ class customController extends Controller
 
         // guardamos el producto normal
         CustomOrder::create([
-            'name' => $request->name,
-            'price' => $request->price,
-            'desc' => $request->desc,
-            'type_id' => $request->type,
-            'subtype' => $request->subtype,
+            'product_id' => $request->product,
             'comments' => $request->comments,
             'user_id' => $request->user,
             'quantity' => $request->quantity,
+            'price' => 0,
             'status' => 0
         ]);
 

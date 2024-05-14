@@ -14,15 +14,11 @@ class CustomOrder extends Model
     protected $table = 'custom_orders';
 
     protected $fillable = [
-        'name',
-        'desc',
-        'image',
-        'quantity',
-        'price',
-        'type_id',
-        'subtype',
+        'product_id',
         'comments',
         'status',
+        'quantity',
+        'price',
         'user_id',
     ];
 
@@ -31,7 +27,7 @@ class CustomOrder extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function types() {
-        return $this->hasOne(Types::class);
+    public function products() {
+        return $this->belongsTo(Products::class);
     }
 }

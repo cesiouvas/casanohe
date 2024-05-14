@@ -13,22 +13,18 @@ return new class extends Migration
     {
         Schema::create('custom_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('desc');
             $table->string('comments');
-            $table->string('image')->default('');
-            $table->string('subtype');
             $table->integer('quantity');
-            $table->decimal('price', 15, 2);
             $table->integer('status');
+            $table->decimal('price', 15, 2);
 
             // foreign key for users
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
             // foreign key for types
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('types');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
 
             $table->timestamps();
         });
