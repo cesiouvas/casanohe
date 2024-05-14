@@ -14,13 +14,13 @@ class CustomOrder extends Model
     protected $table = 'custom_orders';
 
     protected $fillable = [
-        'product_id',
         'comments',
-        'status',
         'quantity',
+        'status',
         'price',
         'admin_msg',
         'user_id',
+        'product_id',
     ];
 
     // relation with the table users

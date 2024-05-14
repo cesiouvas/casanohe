@@ -9,12 +9,13 @@
             <h1 class="text-center">Editar personalización</h1>
             <!-- protection against injections -->
             @csrf
+            @method('PUT')
             <h4 class="p-4">Pedido personalizado de: <small>{{$custom->name}} {{$custom->surname}} ({{$custom->email}})</small></h4>
 
             <div class="d-flex justify-content-center">
                 <div class="p-3 w-100">
-                    <label for="type">Estado</label>
-                    <select class="form-select" name="user" id="user">
+                    <label for="status">Estado</label>
+                    <select class="form-select" name="status" id="status">
                         <option value="0" {{ $custom->status == 0 ? 'selected' : '' }}>Registrado</option>
                         <option value="1" {{ $custom->status == 1 ? 'selected' : '' }}>Admitido</option>
                         <option value="2" {{ $custom->status == 2 ? 'selected' : '' }}>En preparación</option>
@@ -48,7 +49,7 @@
                     <textarea class="form-control" name="admin_msg" id="admin_msg" cols="30" rows="5">{{ $custom->admin_msg }}</textarea>
                 </div>
             </div>
-            
+
             <div class="d-flex justify-content-end p-3">
                 <button class="btn btn-warning" type="submit">Editar personalización</button>
             </div>

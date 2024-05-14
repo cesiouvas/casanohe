@@ -86,8 +86,6 @@ class customController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
-        dd($request);
         $request->validate([
             'price' => 'required',
             'comments' => 'required',
@@ -96,7 +94,22 @@ class customController extends Controller
             'admin_msg' => 'required'
         ]);
 
-        
+        // seleccionar el custom order
+        $co = CustomOrder::findOrFail($id);
+
+        // update de los datos
+        $co->update([
+            'price' => $request->price,
+            'comments' => $request->comments,
+            'status' => $request->status,
+            'quantity' => $request->quantity,
+            'admin_msg' => $request->admin_msg,
+        ]);
+
+        $co->save();
+
+        return redirect()->route('custom.index')
+            ->with('success', 'custom order updated!!');
     }
 
     /**

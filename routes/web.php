@@ -50,11 +50,16 @@ Route::get('/shoppingCart/show/{userId}', [shoppingcartController::class,'show']
 // ----- orders -----
 Route::resource('orders', orderController::class);
 
+Route::get('/orders', [typesController::class,'index'])->name('orders.index');
+
 Route::get('/orders/create/{userId}', [orderController::class,'create'])->name('orders.create');
 
 // ----- custom -----
 Route::resource('custom', customController::class);
 
+Route::get('/custom', [customController::class,'index'])->name('custom.index');
+
 Route::get('/custom/create/{product}', [customController::class,'create'])->name('custom.create');
+
 
 
