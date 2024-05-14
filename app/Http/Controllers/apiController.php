@@ -324,4 +324,16 @@ class apiController extends Controller
             "msg" => "pedido realizado",
         ]);
     }
+
+    public function getPedidosUsuario()
+    {
+        $user = Auth::user();
+
+        $orders = Orders::where('user_id', '=', $user->id)
+            ->get();
+
+        return response()->json([
+            "data" => $orders,
+        ]);
+    }
 }

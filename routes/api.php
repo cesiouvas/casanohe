@@ -64,5 +64,8 @@ Route::group(
 
         // get datos de usuario
         Route::post('getUserData', [apiController::class, 'getUserData']);
+
+        // get pedidos de un usuario
+        Route::get('getPedidosUsuario', [apiController::class, 'getPedidosUsuario']);
     }
 );
