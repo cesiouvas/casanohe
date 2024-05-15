@@ -336,4 +336,33 @@ class apiController extends Controller
             "data" => $orders,
         ]);
     }
+
+    public function getLineasPedido(Request $request)
+    {
+        $user = Auth::user();
+
+        $orderLines = OrderProduct::where('order_product.order_id', $request->order_id)
+            ->leftJoin('products', 'products.id', '=', 'order_product.product_id')
+            ->select(
+                'products.name as product_name', // Seleccionar campos de productos
+                'products.*',
+                'order_product.quantity as quantity_line',
+            )
+            ->get();
+
+        return response()->json([
+            "data" => $orderLines,
+        ]);
+    }
+
+    public function getDetallePedido(Request $request)
+    {
+        $user = Auth::user();
+
+        $order = Orders::findOrFail($request->order_id);
+
+        return response()->json([
+            "data" => $order,
+        ]);
+    }
 }

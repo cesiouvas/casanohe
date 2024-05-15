@@ -67,5 +67,11 @@ Route::group(
 
         // get pedidos de un usuario
         Route::get('getPedidosUsuario', [apiController::class, 'getPedidosUsuario']);
+
+        // get lineas de un pedido
+        Route::get('getLineasPedido', [apiController::class, 'getLineasPedido']);
+
+        // get vista detallada de un pedido
+        Route::get('getDetallePedido', [apiController::class, 'getDetallePedido']);
     }
 );
