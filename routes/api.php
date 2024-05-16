@@ -73,5 +73,8 @@ Route::group(
 
         // get vista detallada de un pedido
         Route::get('getDetallePedido', [apiController::class, 'getDetallePedido']);
+
+        // crear producto personalizado
+        Route::post('createCustomOrder', [apiController::class, 'createCustomOrder']);
     }
 );

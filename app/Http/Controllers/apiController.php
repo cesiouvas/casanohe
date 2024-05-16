@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomOrder;
 use App\Models\OrderProduct;
 use App\Models\Orders;
 use App\Models\Products;
@@ -363,6 +364,32 @@ class apiController extends Controller
 
         return response()->json([
             "data" => $order,
+        ]);
+    }
+
+    function createCustomOrder(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'product_id' => 'required',
+            'comments' => 'required',
+            'quantity' => 'required',
+        ]);
+
+        // guardamos el producto normal
+        CustomOrder::create([
+            'product_id' => $request->product_id,
+            'comments' => $request->comments,
+            'user_id' => $user->id,
+            'quantity' => $request->quantity,
+            'price' => 0,
+            'admin_msg' => '',
+            'status' => 0
+        ]);
+
+        return response()->json([
+            "msg" => "custom enviado!!",
         ]);
     }
 }
