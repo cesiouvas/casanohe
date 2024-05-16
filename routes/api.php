@@ -76,5 +76,8 @@ Route::group(
 
         // crear producto personalizado
         Route::post('createCustomOrder', [apiController::class, 'createCustomOrder']);
+
+        // get pedidos personalizados
+        Route::get('getCustomPedidosUsuario', [apiController::class, 'getCustomPedidosUsuario']);
     }
 );

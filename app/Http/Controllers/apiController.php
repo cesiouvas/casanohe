@@ -392,4 +392,16 @@ class apiController extends Controller
             "msg" => "custom enviado!!",
         ]);
     }
+
+    public function getCustomPedidosUsuario()
+    {
+        $user = Auth::user();
+
+        $custom = CustomOrder::where('user_id', '=', $user->id)
+            ->get();
+
+        return response()->json([
+            "data" => $custom,
+        ]);
+    }
 }
