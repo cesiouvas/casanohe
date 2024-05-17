@@ -35,9 +35,9 @@
                         @foreach ($types as $type)
 
                         @if ($prod->type_id == $type->id)
-                        <option value="{{$prod->type_id}}" selected>{{$type->type}}</option>
+                        <option value="{{$type->id}}" selected>{{$type->type}}</option>
                         @else
-                        <option value="{{$prod->type_id}}">{{$type->type}}</option>
+                        <option value="{{$type->id}}">{{$type->type}}</option>
                         @endif
                         @endforeach
 
