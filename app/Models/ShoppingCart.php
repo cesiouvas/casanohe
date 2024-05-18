@@ -11,7 +11,7 @@ class ShoppingCart extends Model
 {
     use HasFactory, HasApiTokens, Notifiable;
 
-    protected $table = 'shoppingCart';
+    protected $table = 'shoppingcart';
 
     protected $fillable = [
         'line_quantity',
