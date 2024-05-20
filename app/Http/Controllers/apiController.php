@@ -10,6 +10,7 @@ use App\Models\ShoppingCart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class apiController extends Controller
 {
@@ -71,36 +72,43 @@ class apiController extends Controller
     // login ususarios POST
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string'
-        ]);
+        try {
+            $request->validate([
+                'email' => 'required|string|email',
+                'password' => 'required|string'
+            ]);
 
-        $credenciales = request([
-            'email', 'password'
-        ]);
+            $credenciales = request([
+                'email', 'password'
+            ]);
 
-        if (!Auth::attempt($credenciales)) {
-            // Usuario no autorizado
+            if (!Auth::attempt($credenciales)) {
+                // Usuario no autorizado
+                return response()->json([
+                    'msg' => 'No autorizado'
+                ], 401);
+            }
+
+            $user = $request->user();
+
+            $token_res = $user->createToken('token');
+
+            // transformar en token al usuario
+            $token = $token_res->token;
+
+            // guardar en la base de datos
+            $token->save();
+
             return response()->json([
-                'msg' => 'No autorizado'
-            ], 401);
+                'accessToken' => $token_res->accessToken, // token de acceso
+                'token_type' => 'Bearer' // tipo de token
+            ]);
+        } catch (\Exception $e) {
+            // Registra la excepción para su análisis
+            Log::error($e);
+            // Retorna una respuesta de error genérica
+            return response()->json(['error' => 'Errrrorororororo'], 500);
         }
-
-        $user = $request->user();
-
-        $token_res = $user->createToken('token');
-
-        // transformar en token al usuario
-        $token = $token_res->token;
-
-        // guardar en la base de datos
-        $token->save();
-
-        return response()->json([
-            'accessToken' => $token_res->accessToken, // token de acceso
-            'token_type' => 'Bearer' // tipo de token
-        ]);
     }
 
     public function register(Request $request)
