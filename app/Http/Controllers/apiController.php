@@ -404,4 +404,14 @@ class apiController extends Controller
             "data" => $custom,
         ]);
     }
+
+    public function getDetalleCustom(Request $request) {
+        $user = Auth::user();
+
+        $custom = CustomOrder::find($request->custom_id);
+
+        return response()->json([
+            "data" => $custom,
+        ]);
+    }
 }

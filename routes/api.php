@@ -79,5 +79,8 @@ Route::group(
 
         // get pedidos personalizados
         Route::get('getCustomPedidosUsuario', [apiController::class, 'getCustomPedidosUsuario']);
+
+        // get un pedido personalizado
+        Route::get('getDetalleCustom', [apiController::class, 'getDetalleCustom']);
     }
 );
