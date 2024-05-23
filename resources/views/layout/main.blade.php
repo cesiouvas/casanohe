@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 @include('layout.styles')
+<title>Casanohe</title>
 
 <style>
     a {
@@ -26,10 +27,20 @@
                     <img src="{{ asset('img/logo_blanc.png') }}" alt="logo" style="width: 70px;">
                     <h4 class="ps-2 text-light">Casanohe</h4>
                 </div>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                    <button type="submit" class="btn btn-warning" style="background-color: ffa006;">Log out</button>
+                @guest
 
-                </form>
+                @else
+                <button class="btn btn-warning">
+                    <a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </button>
+                @endguest
             </nav>
             <nav class="d-flex justify-content-evenly">
                 <a class="menu" href="{{route('users.index')}}">Usuarios</a>
