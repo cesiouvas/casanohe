@@ -163,11 +163,6 @@ class apiController extends Controller
             $products->where('type_id', $request->type);
         }
 
-        // recoger solo unos pocos (index)
-        if ($request->some == 1) {
-            $products->take(3);
-        }
-
         $result = $products->get();
 
         // devuelve datos al js
