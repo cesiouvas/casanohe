@@ -413,7 +413,8 @@ class apiController extends Controller
         ]);
     }
 
-    public function getDetalleCustom(Request $request) {
+    public function getDetalleCustom(Request $request)
+    {
         $user = Auth::user();
 
         $custom = CustomOrder::find($request->custom_id);
@@ -423,13 +424,30 @@ class apiController extends Controller
         ]);
     }
 
-    public function editarPedidoCustom(Request $request) {
+    public function editarPedidoCustom(Request $request)
+    {
+        // obtener usuario a editar
         $user = Auth::user();
 
-        $custom = CustomOrder::find($request->custom_id);
+        // validar datos
+        $request->validate([
+            'comments' => 'required',
+        ]);
+
+        // instanciar usuario como clase user
+        $custom = CustomOrder::findOrFail($request->custom_id);
+
+        // actualizar datos
+        $custom->update([
+            'price' => $custom->price,
+            'comments' => $request->comments,
+            'status' => $custom->status,
+            'quantity' => $custom->quantity,
+            'admin_msg' => $custom->admin_msg,
+        ]);;
 
         return response()->json([
-            "data" => $custom,
+            "msg" => 'Datos de usuario actualizados correctamente',
         ]);
     }
 }
