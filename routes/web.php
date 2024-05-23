@@ -60,6 +60,3 @@ Route::resource('custom', customController::class);
 Route::get('/custom', [customController::class,'index'])->name('custom.index');
 
 Route::get('/custom/create/{product}', [customController::class,'create'])->name('custom.create');
-
-
-

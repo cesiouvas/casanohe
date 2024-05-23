@@ -4,7 +4,7 @@
 
 <div class="pt-4" style="display:flex; justify-content:center; align-items:center;">
     <div class="rounded-5 p-2" style="border: 8px solid #ffcc23; background-color: #fcf386; width: 80vh;">
-        <form action="{{ route('custom.update', $custom->id) }}" method="POST">
+        <form action="{{ route('custom.update', $custom->cusid) }}" method="POST">
             <p class="ps-3 pt-3"><a href="{{route('custom.index')}}"><i class="fa-solid fa-arrow-left fa-xl" style="color: #000000;"></i></a></p>
             <h1 class="text-center">Editar personalización</h1>
             <!-- protection against injections -->

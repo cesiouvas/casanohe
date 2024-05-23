@@ -75,6 +75,7 @@ class customController extends Controller
     public function edit(string $id)
     {
         $custom = CustomOrder::leftJoin('users', 'users.id', '=', 'custom_orders.user_id')
+            ->select('*', 'custom_orders.id as cusid')
             ->findOrFail($id);
 
         // return to the edit view
@@ -93,6 +94,8 @@ class customController extends Controller
             'quantity' => 'required',
             'admin_msg' => 'required'
         ]);
+
+        //dd($request);
 
         // seleccionar el custom order
         $co = CustomOrder::findOrFail($id);
