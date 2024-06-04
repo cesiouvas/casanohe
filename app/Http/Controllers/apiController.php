@@ -128,7 +128,7 @@ class apiController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->passwd),
             'dni' => '',
-            'type' => 1
+            'type' => 0
         ]);
 
         $user->save();
